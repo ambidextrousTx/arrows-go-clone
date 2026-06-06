@@ -8,9 +8,9 @@ function generateOccupancyMap(width: number, height: number): Map<string, boolea
     for (let j = 0; j < width; j++) {
       occupancyMap.set(`${i},${j}`, false)
     }
-
-    return occupancyMap;
   }
+
+  return occupancyMap;
 }
 
 function checkCollision(arrowId: string) {
