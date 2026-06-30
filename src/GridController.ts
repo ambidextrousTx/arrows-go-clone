@@ -1,18 +1,43 @@
-function moveArrow(arrowId: string) {
+type Direction = { x: 0 | 1 | -1; y: 0 | 1 | -1 }
 
+interface Arrow {
+  id: string;
+  // Index 0 is the head, index length - 1 is the tail
+  cells: Array<{ x: number, y: number}>;
+  direction: Direction;
+  status: 'idle' | 'moving' | 'escaping' | 'colliding';
 }
 
-function generateOccupancyMap(width: number, height: number): Map<string, boolean> {
-  const occupancyMap = new Map<string, boolean>();
-  for (let i = 0; i < height; i++) {
-    for (let j = 0; j < width; j++) {
-      occupancyMap.set(`${i},${j}`, false)
-    }
+class GridController {
+
+  occupancyMap: Map<string, boolean>;
+  width: number;
+  height: number;
+  arrows: Array<Arrow>;
+
+  constructor() {
+    this.width = 100;
+    this.height = 100;
+    this.occupancyMap = generateOccupancyMap(this.width, this.height);
+    this.arrows = [];
+  };
+
+  function moveArrow(arrowId: string) {
+
   }
 
-  return occupancyMap;
-}
+  function generateOccupancyMap(width: number, height: number): Map<string, boolean> {
+    const occupancyMap = new Map<string, boolean>();
+    for (let i = 0; i < height; i++) {
+      for (let j = 0; j < width; j++) {
+        occupancyMap.set(`${i},${j}`, false)
+      }
+    }
 
-function checkCollision(arrowId: string) {
+    return occupancyMap;
+  }
 
+  function canEscape(arrowId: string) {
+
+  }
 }
