@@ -20,10 +20,16 @@ class GridController {
     this.height = 100;
     this.occupancyMap = generateOccupancyMap(this.width, this.height);
     this.arrows = [];
-  };
+  }
 
-  function moveArrow(arrowId: string) {
-
+  function moveArrow(arrowId: string): void {
+    let arrow = this.arrows.find(x => x.id === arrowId);
+    let nextHeadPosition = arrow.cells[0] + arrow.direction;
+    let mapStatus = this.occupancyMap.get(nextHeadPosition);
+    switch (mapStatus) {
+      // cases
+    }
+    // updateOccupancyMap
   }
 
   function generateOccupancyMap(width: number, height: number): Map<string, boolean> {
