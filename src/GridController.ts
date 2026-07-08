@@ -18,13 +18,14 @@ class GridController {
   constructor() {
     this.width = 100;
     this.height = 100;
-    this.occupancyMap = generateOccupancyMap(this.width, this.height);
+    this.occupancyMap = this.generateOccupancyMap(this.width, this.height);
     this.arrows = [];
   }
 
-  function moveArrow(arrowId: string): void {
+  moveArrow(arrowId: string): void {
     let arrow = this.arrows.find(x => x.id === arrowId);
-    let nextHeadPosition = arrow.cells[0] + arrow.direction;
+    let nextHeadPositionX = arrow.cells[0].x + arrow.direction.x;
+    let nextHeadPositionY = arrow.cells[0].y + arrow.direction.y;
     let mapStatus = this.occupancyMap.get(nextHeadPosition);
     switch (mapStatus) {
       // cases
@@ -32,7 +33,7 @@ class GridController {
     // updateOccupancyMap
   }
 
-  function generateOccupancyMap(width: number, height: number): Map<string, boolean> {
+  generateOccupancyMap(width: number, height: number): Map<string, boolean> {
     const occupancyMap = new Map<string, boolean>();
     for (let i = 0; i < height; i++) {
       for (let j = 0; j < width; j++) {
@@ -43,7 +44,7 @@ class GridController {
     return occupancyMap;
   }
 
-  function canEscape(arrowId: string) {
+  canEscape(arrowId: string) {
 
   }
 }
