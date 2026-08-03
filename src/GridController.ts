@@ -24,13 +24,47 @@ class GridController {
 
   moveArrow(arrowId: string): void {
     let arrow = this.arrows.find(x => x.id === arrowId);
-    let nextHeadPositionX = arrow.cells[0].x + arrow.direction.x;
-    let nextHeadPositionY = arrow.cells[0].y + arrow.direction.y;
-    let mapStatus = this.occupancyMap.get(nextHeadPosition);
-    switch (mapStatus) {
-      // cases
+    if (arrow !== undefined) {
+      let nextHeadPositionX = arrow.cells[0].x + arrow.direction.x;
+      let nextHeadPositionY = arrow.cells[0].y + arrow.direction.y;
+      let position = `${nextHeadPositionX},${nextHeadPositionY}`
+
+      // 1. First, check bounds before reading the occupancy map
+      const isOutOfBounds = 
+        nextHeadPositionX < 0 || nextHeadPositionX >= this.width||
+        nextHeadPositionY < 0 || nextHeadPositionY >= this.height;
+
+      if (isOutOfBounds) {
+        // Arrow is escaping!
+        this.handleEscapeStep(arrow);
+        return;
+      }
+
+      let mapStatus = this.occupancyMap.get(position);
+      // 2. If inside bounds, check occupancy map
+      switch (mapStatus) {
+        case undefined:
+          // Cell is EMPTY -> Advance body forward by 1 step
+          this.advanceSnake(arrow, { x: nextHeadPositionX, y: nextHeadPositionY });
+          break;
+
+        case arrow.id:
+          // Wait, can a head hit its own body? 
+          // Only if it's moving into its own tail cell as the tail leaves!
+          // For straight-line movement, treat as empty if it's the current tail cell.
+          this.advanceSnake(arrow, { x: nextHeadPositionX, y: nextHeadPositionY });
+          break;
+
+        default:
+          // It's another arrow's ID! -> COLLISION!
+          this.handleCollision(arrow);
+          break;
+      }
+      switch (mapStatus) {
+        // cases
+      }
+      // updateOccupancyMap
     }
-    // updateOccupancyMap
   }
 
   generateOccupancyMap(width: number, height: number): Map<string, boolean> {
