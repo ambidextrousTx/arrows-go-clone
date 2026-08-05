@@ -22,6 +22,21 @@ class GridController {
     this.arrows = [];
   }
 
+  private advanceSnake(arrow: Arrow, newHead: { x: number; y: number }): void {
+  // A. Get the old tail before we alter the array
+  const oldTail = arrow.cells[arrow.cells.length - 1];
+
+  // B. Free up the old tail position in the map
+  this.occupancyMap.delete(`${oldTail.x},${oldTail.y}`);
+
+  // C. Update snake cells (Shift everything forward)
+  arrow.cells.pop(); // Remove tail
+  arrow.cells.unshift(newHead); // Add new head
+
+  // D. Claim the new head position in the map
+  this.occupancyMap.set(`${newHead.x},${newHead.y}`, arrow.id);
+  }
+
   moveArrow(arrowId: string): void {
     let arrow = this.arrows.find(x => x.id === arrowId);
     if (arrow !== undefined) {
