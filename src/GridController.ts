@@ -10,7 +10,7 @@ interface Arrow {
 
 class GridController {
 
-  occupancyMap: Map<string, boolean>;
+  occupancyMap: Map<string, string | undefined>;
   width: number;
   height: number;
   arrows: Array<Arrow>;
@@ -82,11 +82,11 @@ class GridController {
     }
   }
 
-  generateOccupancyMap(width: number, height: number): Map<string, boolean> {
-    const occupancyMap = new Map<string, boolean>();
+  generateOccupancyMap(width: number, height: number): Map<string, string | undefined> {
+    const occupancyMap = new Map<string, string | undefined>();
     for (let i = 0; i < height; i++) {
       for (let j = 0; j < width; j++) {
-        occupancyMap.set(`${i},${j}`, false)
+        occupancyMap.set(`${i},${j}`, "")
       }
     }
 
