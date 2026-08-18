@@ -12,7 +12,8 @@ TBD
 
 ```
 
-## Mathematical concepts
+## Rules
 ### There is always a solution
 ### Puzzles can take any geometric shape
-### Puzzles get incrementally harder as levels advance
+### The arrows advance in the direction of the arrow heads, effectively unwrapping as they escape
+### Puzzles get incrementally harder as levels advance (how do we measure this?)
