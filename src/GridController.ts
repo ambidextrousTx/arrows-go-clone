@@ -93,7 +93,11 @@ class GridController {
     return occupancyMap;
   }
 
-  canEscape(arrowId: string) {
+  handleCollision(arrow: Arrow): void {
+
+  }
+
+  handleEscapeStep(arrow: Arrow): void {
 
   }
 }
